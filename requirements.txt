@@ -3,6 +3,10 @@ asgiref==3.8.1
 Django==4.2.16
 typing_extensions==4.12.2
 python-decouple==3.8
+django-debug-toolbar==4.4.6
+pillow==10.4.0
+
+
 
 # database modules
 psycopg-binary==3.2.1
