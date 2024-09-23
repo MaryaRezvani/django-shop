@@ -1,0 +1,404 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<div>
+    <div class="container content-space-t-2 content-space-t-lg-3">
+        <div class="row">
+            <div class="col-sm">
+                <h4 class="mb-0">شبکه محصولات</h4>
+            </div>
+            <!-- End Col -->
+
+            <div class="col-sm-auto">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 ">
+                        <li class="breadcrumb-item ps-2">
+                            <a href="{% url 'website:index' %}">خانه</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'shop:product-grid' %}">فروشگاه</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">محصولات</li>
+                    </ol>
+                </nav>
+                <!-- End Breadcrumb -->
+            </div>
+            <!-- End Col -->
+        </div>
+        <!-- End Row -->
+    </div>
+</div>
+<!-- End Breadcrumb -->
+
+<!-- Card Grid -->
+<div class="container content-space-t-1 content-space-t-md-2 content-space-b-2 content-space-b-lg-3">
+    <div class="row">
+        <div class="col-lg-3">
+            <!-- Navbar -->
+            <div class="navbar-expand-lg mb-5">
+                <!-- Navbar Toggle -->
+                <div class="d-grid">
+                    <button type="button" class="navbar-toggler btn btn-white mb-3" data-bs-toggle="collapse"
+                        data-bs-target="#navbarVerticalNavMenu" aria-label="Toggle navigation" aria-expanded="false"
+                        aria-controls="navbarVerticalNavMenu">
+                        <span class="d-flex justify-content-between align-items-center">
+                            <span class="text-dark">فیلتر کنید</span>
+
+
+                            <span class="navbar-toggler-default">
+                                <i class="bi-list"></i>
+                            </span>
+
+                            <span class="navbar-toggler-toggled">
+                                <i class="bi-x"></i>
+                            </span>
+                        </span>
+                    </button>
+                </div>
+                <!-- End Navbar Toggle -->
+
+                <!-- Navbar Collapse -->
+                <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
+                    <form action="." class="w-100">
+
+                        <div class="border-bottom pb-4 mb-4">
+                            <h5>جستو جوی کالا</h5>
+                            <div class="d-grid gap-2">
+                                <div class="form-group">
+                                    <label class="form-label d-flex" for="search-query-filter">جستو جو</label>
+                                    <input class="form-control" placeholder="واژه مورد نظر را وارد نمایید" type="text"
+                                        name="q" id="search-query-filter">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-bottom pb-4 mb-4">
+                            <h5>قیمت</h5>
+                            <div class="d-grid gap-2">
+
+                                <div class="form-group">
+                                    <label class="form-label d-flex" for="min-price-filter">کمترین قیمت</label>
+                                    <input class="form-control" type="number" name="min_price"
+                                        placeholder="کمترین قیمت مد نظر" id="min-price-filter">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label d-flex" for="max-price-filter">بیشترین قیمت</label>
+                                    <input class="form-control" type="number" name="max_price"
+                                        placeholder="بیشترین قیمت مد نظر" id="max-price-filter">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-bottom pb-4 mb-4">
+                            <h5>دسته بندی</h5>
+                            <div class="d-grid gap-2">
+                                <div class="mb-2 mb-sm-0 me-sm-2">
+                                    <select class="form-select form-select-sm" name="category_id"
+                                        id="category-id-filter">
+                                        <option value="" selected>انتخاب دسته بندی</option>
+                                        {% for category in categories %}
+                                        <option value="{{category.id}}">{{category.title}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-outline-primary btn-transition mb-3">اعمال
+                                فیلتر</button>
+                            <a href="{% url 'shop:product-grid' %}"
+                                class="btn btn-outline-danger btn-transition mb-3">حذف فیلتر ها</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- End Navbar Collapse -->
+            </div>
+            <!-- End Navbar -->
+        </div>
+        <!-- End Col -->
+
+        <div class="col-lg-9">
+            <div class="row align-items-center mb-5">
+                <div class="col-sm mb-3 mb-sm-0">
+                    <h6 class="mb-0">{{total_items}} محصول</h6>
+                </div>
+
+                <div class="col-sm-auto">
+                    <div class="d-sm-flex justify-content-sm-end align-items-center">
+                        <!-- Select -->
+                        <div class="mb-2 mb-sm-0 me-sm-2">
+                            <select class="form-select form-select-sm" id="order-by-filter">
+                                <option value="" selected>مرتب سازی</option>
+                                <option value="-created_date">جدیدترین</option>
+                                <option value="created_date">قدیمی ترین</option>
+                                <option value="-price">بیشترین قیمت</option>
+                                <option value="price">کمترین قیمت</option>
+                            </select>
+                        </div>
+                        <!-- End Select -->
+                        <!-- Select -->
+                        <div class="mb-2 mb-sm-0 me-sm-2">
+                            <select class="form-select form-select-sm" id="page-size-filter">
+                                <option value="" selected>تعداد در صفحه</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                        <!-- End Select -->
+
+                        <!-- Nav -->
+                        <ul class="nav nav-segment">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'shop:product-grid' %}">
+                                    <i class="bi-grid-fill"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="bi-list"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- End Nav -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Row -->
+
+            <div class="row row-cols-sm-2 row-cols-md-3 mb-10">
+                {% for object in object_list %}
+                <div class="col mb-4">
+                    <!-- Card -->
+                    <div class="card card-bordered shadow-none text-center h-100">
+                        <div class="card-pinned">
+                            <img class="card-img-top" src="{{object.image.url}}" alt="Image Description">
+
+                            <div class="card-pinned-top-end">
+                                {% if request.user.is_authenticated %}
+                                <button type="button"
+                                    class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if object.id in wishlist_items %} active {% endif %} "
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق"
+                                    onclick="addToWishlist(this,`{{object.id}}`)">
+                                    <i class="bi-heart"></i>
+                                </button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="mb-2">
+                                {% for category in object.category.all %}
+                                <a class="link-sm link-secondary" href="#"> {{category.title}} </a>
+                                {% if not forloop.last %}
+                                ,
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <h4 class="card-title">
+                                <a class="text-dark"
+                                    href="{% url 'shop:product-detail' slug=object.slug %}">{{object.title}}</a>
+                            </h4>
+                            {% if object.is_discounted %}
+                            <p class="card-text text-dark fs-4">
+                                <span class="formatted-price">{{object.get_price}}</span>
+                                <span
+                                    class="text-body me-1 fs-6 formatted-price text-decoration-line-through">{{object.price}}</span>
+                            </p>
+                            {% else %}
+                            <p class="card-text text-dark fs-4 formatted-price"> {{object.price}}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="card-footer pt-0">
+                            <!-- Rating -->
+                            <a class="d-inline-flex align-items-center mb-3" href="#">
+                                {% for i in "12345" %}
+                                {% if i|add:0 <= object.avg_rate %} <span><i
+                                        class="bi bi-star-fill star-rate"></i></span>
+                                    {% else %}
+                                    <span><i class="bi bi-star star-rate"></i></span>
+                                    {% endif %}
+
+                                    {% endfor %}
+                                    <span class="ms-1">{{object.avg_rate}}/5</span>
+                            </a>
+                            <!-- End Rating -->
+
+                            <button type="button" class="btn btn-outline-primary btn-sm btn-transition rounded-pill"
+                                onclick="addToCart('{{object.id}}')">افزودن به سبد
+                                خرید</button>
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                </div>
+                {% empty %}
+                <div class="row text-center w-100 py-5">
+                    <p class="text-center">هیچ کالایی برای نمایش وجود ندارد</p>
+                </div>
+                <!-- End Col -->
+                {% endfor %}
+
+            </div>
+            <!-- End Row -->
+
+            {% if page_obj.has_other_pages %}
+            <!-- Pagination -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <button class="page-link" onclick="changePage(`{{ page_obj.previous_page_number }}`)"
+                            aria-label="Previous">
+                            <span aria-hidden="true">
+                                <i class="bi-chevron-double-right small"></i>
+                            </span>
+                        </button>
+                    </li>
+                    {% endif %}
+                    {{page_obj.page_range}}
+                    {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                    <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                    {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %} <li class="page-item">
+                        <button class="page-link" onclick="changePage(`{{i}}`)">{{ i }}</button></li>
+
+                        {% endif %}
+
+                        {% endfor %}
+
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)"
+                                aria-label="Previous">
+                                <span aria-hidden="true">
+                                    <i class="bi-chevron-double-left small"></i>
+                                </span>
+                            </button>
+                        </li>
+                        {% endif %}
+
+                </ul>
+            </nav>
+            {% endif %}
+            <!-- End Pagination -->
+        </div>
+        <!-- End Col -->
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Card Grid -->
+
+<!-- Subscribe -->
+<div class="bg-light">
+    <div class="container content-space-2">
+        <div class="w-md-75 w-lg-50 text-center mx-md-auto">
+            <div class="row justify-content-lg-between">
+                <!-- Heading -->
+                <div class="mb-5">
+                    <span class="text-cap">ثبت نام</span>
+                    <h2>اخبار جدید را دریافت کنید</h2>
+                </div>
+                <!-- End Heading -->
+
+                <form method="post" action="#">
+                    {% csrf_token %}
+                    <!-- Input Card -->
+                    <div class="input-card input-card-pill input-card-sm border mb-3">
+                        <div class="input-card-form">
+                            <input class="form-control border-0 me-1" type="text" placeholder="نام"
+                                        name="first_name" hidden="">
+                            <label for="subscribeForm" class="form-label visually-hidden">ایمیل را وارد کنید</label>
+                            <input type="email" class="form-control form-control-lg" name="email"
+                                placeholder="ایمیل خود را وارد نمایید" aria-label="ایمیل خود را وارد کنید">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill">ثبت نام</button>
+                    </div>
+                    <!-- End Input Card -->
+                </form>
+
+                <p class="small">می توانید در هر زمانی اشتراک خود را لغو کنید <a href="#">سیاست حفظ حریم خصوصی</a> ما را
+                    بخوانید</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Subscribe -->
+
+<!-- Clients -->
+<div class="container content-space-2">
+    <div class="row">
+        <div class="col text-center py-3">
+            <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/hollister-dark.svg' %}" alt="Logo">
+        </div>
+        <!-- End Col -->
+
+        <div class="col text-center py-3">
+            <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/levis-dark.svg' %}" alt="Logo">
+        </div>
+        <!-- End Col -->
+
+        <div class="col text-center py-3">
+            <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/new-balance-dark.svg' %}" alt="Logo">
+        </div>
+        <!-- End Col -->
+
+        <div class="col text-center py-3">
+            <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/puma-dark.svg' %}" alt="Logo">
+        </div>
+        <!-- End Col -->
+
+        <div class="col text-center py-3">
+            <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/nike-dark.svg' %}" alt="Logo">
+        </div>
+        <!-- End Col -->
+
+        <div class="col text-center py-3">
+            <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/tnf-dark.svg' %}" alt="Logo">
+        </div>
+        <!-- End Col -->
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Clients -->
+
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+
+    $(document).ready(function () {
+        let current_url_params = new URLSearchParams(window.location.search)
+        $("#page-size-filter").val(current_url_params.get("page_size") || "")
+        $("#order-by-filter").val(current_url_params.get("order_by") || "")
+        $("#search-query-filter").val(current_url_params.get("q") || "")
+        $("#min-price-filter").val(current_url_params.get("min_price") || "")
+        $("#max-price-filter").val(current_url_params.get("max_price") || "")
+        $("#category-id-filter").val(current_url_params.get("category_id") || "")
+
+    });
+    $('#page-size-filter').change(function () {
+        let current_url_params = new URLSearchParams(window.location.search)
+        var selectedOption = $(this).val();
+        current_url_params.set("page_size", selectedOption)
+        let new_url = window.location.pathname + "?" + current_url_params.toString()
+        window.location.href = new_url
+    });
+    $('#order-by-filter').change(function () {
+        let current_url_params = new URLSearchParams(window.location.search)
+        var selectedOption = $(this).val();
+        current_url_params.set("order_by", selectedOption)
+        let new_url = window.location.pathname + "?" + current_url_params.toString()
+        window.location.href = new_url
+    });
+
+</script>
+
+{% endblock %}
