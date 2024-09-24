@@ -94,7 +94,7 @@
                                 <i class="bi-basket"></i>
                                 <span class="cart-item-count ">3</span>
                             </button> -->
-                            <a href="#" class="btn btn-ghost-secondary btn-icon">
+                            <a href="{% url 'cart:cart-summary' %}" class="btn btn-ghost-secondary btn-icon">
                                 <i class="bi-basket"></i>
                                 <span class="cart-item-count" id="total-cart-item-count">{{cart.get_total_quantity}}</span>
                             </a>
@@ -588,7 +588,7 @@
      
             //console.log(product_id)
             $.ajax({
-                url: "#",
+                url: "{%  url 'cart:session-add-product' %}",
                 method: 'POST',
                 data: {
                     product_id: product_id,
@@ -642,8 +642,8 @@
     {% block extra_js %} {% endblock extra_js %}
 
     {% block extra_js_no_compress %} {% endblock extra_js_no_compress %}
-{% include 'messages.html' %}
-    
+
+    {% include 'messages.html' %}
 </body>
 
 </html>
