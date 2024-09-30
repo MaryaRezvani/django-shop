@@ -166,3 +166,11 @@ postgres/data/*
 
 # ignore media files
 core/media/product/img/*
+
+# Only for Development Only
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+
+# ignore django logs
+log.django
