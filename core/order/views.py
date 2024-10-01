@@ -19,7 +19,8 @@ from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import redirect
 # Create your views here.
-
+from payment.zarinpal_client import ZarinPalSandbox
+from payment.models import PaymentModel
 
 
 class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormView):
@@ -54,8 +55,19 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
         total_price = order.calculate_total_price()
         self.apply_coupon(coupon, order, user, total_price)
         order.save()
-        return super().form_valid(form)
+        # return super().form_valid(form)
+        return redirect(self.create_payment_url(order))
 
+    def create_payment_url(self, order):
+        zarinpal = ZarinPalSandbox()
+        response = zarinpal.payment_request(order.get_price())
+        payment_obj = PaymentModel.objects.create(
+            authority_id=response.get("Authority"),
+            amount=order.get_price(),
+        )
+        order.payment = payment_obj
+        order.save()
+        return zarinpal.generate_payment_url(response.get("Authority"))
 
 
     def create_order(self, address):
@@ -69,21 +81,25 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
 
     def create_order_items(self, order, cart, request):
         for item in cart.cart_items.all():
-            OrderItemModel.objects.create(
-                order=order,
-                product=item.product,
-                quantity=item.quantity,
-                price=item.product.get_price(),
-            )
-        # کم کردن موجودی محصول به میزان خرید
-        product = item.product
-        if product.stock >= item.quantity:  # چک کردن اینکه موجودی کافی است
-            product.stock -= item.quantity
-            product.save()
-        else:
-            # اضافه کردن پیام خطا
-            messages.error(request, f"موجودی برای محصول {product.title} کافی نیست.")
-            return redirect('order:checkout')  # بازگشت به صفحه checkout
+            product = item.product
+            
+            # چک کردن موجودی محصول
+            if product.stock >= item.quantity:
+                # ایجاد آیتم سفارش
+                OrderItemModel.objects.create(
+                    order=order,
+                    product=product,
+                    quantity=item.quantity,
+                    price=product.get_price(),
+                )
+                
+                # کم کردن موجودی محصول
+                product.stock -= item.quantity
+                product.save()
+            else:
+                # اضافه کردن پیام خطا
+                messages.error(request, f"موجودی برای محصول {product.title} کافی نیست.")
+                return redirect('order:checkout')  # بازگشت به صفحه checkout
 
 
     def clear_cart(self, cart):
