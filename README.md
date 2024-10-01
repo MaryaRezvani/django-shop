@@ -41,13 +41,13 @@ This is a sample project to show you how to create a ecommerce website, and how 
 1. **Apply migrations**:
    Run the migrations inside the Django container:
    ```bash
-   sh -c "python manage.py makemigrations && python manage.py migrate"
+   docker compose exec backend sh -c "python manage.py makemigrations && python manage.py migrate"
    ```
 
 2. **Create a superuser**:
    To create a superuser for accessing the Django admin panel:
    ```bash
-   sh -c "python manage.py createsuperuser"
+   docker compose exec backend sh -c "python manage.py createsuperuser"
    ```
 3. **Access the application**:
    Once the containers are up, you can access the application by visiting:

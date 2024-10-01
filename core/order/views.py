@@ -16,6 +16,7 @@ from decimal import Decimal
 from order.models import CouponModel
 from django.http import JsonResponse
 from django.utils import timezone
+from django.contrib import messages
 from django.shortcuts import redirect
 # Create your views here.
 
@@ -40,7 +41,14 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
         cart = CartModel.objects.get(user=user)
         order = self.create_order(address)
 
-        self.create_order_items(order, cart)
+        result = self.create_order_items(order, cart, self.request)
+
+        # self.create_order_items(order, cart)
+
+        # چک کردن نتیجه اگر موجودی کافی نبود
+        if result:
+            return result  # برگرداندن صفحه checkout با پیام خطا
+
         self.clear_cart(cart)
 
         total_price = order.calculate_total_price()
@@ -59,7 +67,7 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
             zip_code=address.zip_code,
         )
 
-    def create_order_items(self, order, cart):
+    def create_order_items(self, order, cart, request):
         for item in cart.cart_items.all():
             OrderItemModel.objects.create(
                 order=order,
@@ -67,6 +75,16 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
                 quantity=item.quantity,
                 price=item.product.get_price(),
             )
+        # کم کردن موجودی محصول به میزان خرید
+        product = item.product
+        if product.stock >= item.quantity:  # چک کردن اینکه موجودی کافی است
+            product.stock -= item.quantity
+            product.save()
+        else:
+            # اضافه کردن پیام خطا
+            messages.error(request, f"موجودی برای محصول {product.title} کافی نیست.")
+            return redirect('order:checkout')  # بازگشت به صفحه checkout
+
 
     def clear_cart(self, cart):
         cart.cart_items.all().delete()
@@ -100,6 +118,7 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
 
 class OrderCompletedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
     template_name = "order/completed.html"
+
     
 class OrderFailedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
     template_name = "order/failed.html"
@@ -140,4 +159,5 @@ class ValidateCouponView(LoginRequiredMixin, HasCustomerAccessPermission, View):
         return JsonResponse({"message": message, "total_tax": total_tax, "total_price": total_price}, status=status_code)
 
    
-   
+
+
