@@ -1,4 +1,5 @@
 <h1>Django Shop</h1>
+<h3>a example of a Django application which indicates a shop written in python</h3>
 <p align="center">
 <a href="https://www.python.org" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a>
 <a href="https://www.djangoproject.com/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/django/django-original.svg" alt="django" width="40" height="40"/> </a>
@@ -7,10 +8,6 @@
 </a>
 <a href="https://www.sqlite.org/" target="_blank"> <img src="https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg" alt="ppostgresql" width="40" height="40"/> </a>
 </p>
-
-
-# django-shop
-a example of a Django application which indicates a shop written in python
 
 # Goal
 
