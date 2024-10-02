@@ -5,6 +5,7 @@ typing_extensions==4.12.2
 python-decouple==3.8
 django-debug-toolbar==4.4.6
 pillow==10.4.0
+requests==2.32.3
 
 
 
