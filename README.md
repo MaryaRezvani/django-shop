@@ -34,7 +34,7 @@ This is a sample project to show you how to create a ecommerce website, and how 
 4. **Build the Docker images**:
    Build the Docker containers using the provided `docker-compose.yml` file.
    ```bash
-   docker-compose --build
+   docker-compose build
    ```
 
 5. **Run the project**:
