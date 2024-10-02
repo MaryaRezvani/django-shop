@@ -610,7 +610,7 @@
      
             //console.log(product_id)
             $.ajax({
-                url: "#",
+                url: "{% url 'shop:add-or-remove-wishlist' %}",
                 method: 'POST',
                 data: {
                     product_id: product_id,
