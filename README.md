@@ -28,7 +28,7 @@ This is a sample project to show you how to create a ecommerce website, and how 
 
 3. Copy the `.env-sample` file to `.env`:
    ```bash
-   cp .env-sample .env
+   cp .env.sample .env
 
 
 4. **Build the Docker images**:
