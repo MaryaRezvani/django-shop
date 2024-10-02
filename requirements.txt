@@ -7,8 +7,6 @@ django-debug-toolbar==4.4.6
 pillow==10.4.0
 requests==2.32.3
 
-
-
 # database modules
 psycopg-binary==3.2.1
 psycopg==3.2.1
