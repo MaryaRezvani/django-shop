@@ -275,7 +275,8 @@
 </div>
 <!-- End Content -->
 
-{% show_similar_products product=object %}
+{% show_similar_products object %}
+
 <!-- Review Section -->
 <div id="reviewSection" class="container content-space-b-2 content-space-b-lg-3">
     <div class="row">
@@ -549,7 +550,7 @@
             </div>
 
             <div class="modal-body">
-                <form action="#" method="post" id="review-form">
+                <form action="{% url 'review:submit-review' %}" method="post" id="review-form">
                     {% csrf_token %}
                     <input hidden name="product" value="{{object.id}}">
                     <div class="row">
