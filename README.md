@@ -1,5 +1,5 @@
-<h1>Django Shop</h1>
-<h3>a example of a Django application which indicates a shop written in python</h3>
+<h1 align="center">Django Shop</h1>
+<h3 align="center">a example of a Django application which indicates a shop written in python</h3>
 <p align="center">
 <a href="https://www.python.org" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a>
 <a href="https://www.djangoproject.com/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/django/django-original.svg" alt="django" width="40" height="40"/> </a>
