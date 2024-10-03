@@ -8,6 +8,10 @@ urlpatterns = [
     path("",include("dashbord.admin.urls.products")),
     path("",include("dashbord.admin.urls.orders")),
     path("",include("dashbord.admin.urls.reviews")),
+    path("",include("dashbord.admin.urls.newsletters")),
+    path("",include("dashbord.admin.urls.contacts")),
+    path("",include("dashbord.admin.urls.users")),
+    path("",include("dashbord.admin.urls.coupons")),
 
 ]
 
