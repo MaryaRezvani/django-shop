@@ -1,4 +1,4 @@
-{% extends 'dashbord/admin/base.html' %}
+{% extends 'dashboard/admin/base.html' %}
 {% load static %}
 
 
@@ -104,8 +104,8 @@
                     <div class="card-footer">
                         <div class=" d-flex pt-5 justify-content-end">
                             <a class="btn btn-danger ms-3"
-                                href="{% url 'dashbord:admin:product-delete' pk=object.pk %}">حذف</a>
-                            <a class="btn btn-secondary ms-3" href="{% url 'dashbord:admin:product-list' %}">بازگشت</a>
+                                href="{% url 'dashboard:admin:product-delete' pk=object.pk %}">حذف</a>
+                            <a class="btn btn-secondary ms-3" href="{% url 'dashboard:admin:product-list' %}">بازگشت</a>
                             <button class="btn btn-primary ms-3" type="submit">ثبت تغییرات</button>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
             <!-- End Header -->
 
             <!-- Body -->
-            <form action="{% url 'dashbord:admin:product-add-image' pk=object.pk %}" method="post"
+            <form action="{% url 'dashboard:admin:product-add-image' pk=object.pk %}" method="post"
                 enctype="multipart/form-data">
 
                 {% csrf_token %}
@@ -146,7 +146,7 @@
                     <div class="col-md-2">
                         <img class="img-fluid" style="width:100px; height:100px" src="{{product_image.file.url}}"
                             alt="Image Description">
-                        <form action="{% url 'dashbord:admin:product-remove-image' pk=object.pk image_id=product_image.pk %}" method="post">
+                        <form action="{% url 'dashboard:admin:product-remove-image' pk=object.pk image_id=product_image.pk %}" method="post">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger btn-sm">حذف تصویر</button>
                         </form>

@@ -1,4 +1,4 @@
-{% extends 'dashbord/admin/base.html' %}
+{% extends 'dashboard/admin/base.html' %}
 {% load static %}
 
 
@@ -90,7 +90,7 @@
                                     <td>{{object.created_date|date:"Y-m-d h:i"}}</td>
                                     <td class="d-flex">
                                         <a class="btn btn-sm btn-icon btn-ghost-danger"
-                                            href="{% url 'dashbord:admin:newsletter-delete' pk=object.pk %}"><i class="bi-trash"></i></a>
+                                            href="{% url 'dashboard:admin:newsletter-delete' pk=object.pk %}"><i class="bi-trash"></i></a>
         
                                     </td>
                                 </tr>
