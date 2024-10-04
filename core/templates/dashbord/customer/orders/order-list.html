@@ -1,4 +1,4 @@
-{% extends 'dashbord/customer/base.html' %}
+{% extends 'dashboard/customer/base.html' %}
 {% load static %}
 
 {% block breadcrumb %}
@@ -141,13 +141,13 @@
                                     <div class="d-grid gap-2">
                                         {% if object.is_successful %}
                                         <a class="btn btn-white btn-sm"
-                                            href="{% url 'dashbord:customer:order-invoice' pk=object.pk %}"
+                                            href="{% url 'dashboard:customer:order-invoice' pk=object.pk %}"
                                             target="_blank">
                                             <i class="bi-receipt small me-2"></i> مشاهده فاکتور
                                         </a>
                                         {% endif %}
                                         <a class="btn btn-primary btn-sm"
-                                            href="{% url 'dashbord:customer:order-detail' pk=object.pk %}">مشاهده
+                                            href="{% url 'dashboard:customer:order-detail' pk=object.pk %}">مشاهده
                                             سفارش</a>
                                     </div>
                                 </div>

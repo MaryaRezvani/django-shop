@@ -1,4 +1,4 @@
-{% extends 'dashbord/admin/base.html' %}
+{% extends 'dashboard/admin/base.html' %}
 {% load static %}
 
 {% block breadcrumb %}
@@ -22,7 +22,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <h5 class="">سفارش شماره {{object.id}}</h5>
         {% if object.is_successful %}
-        <a class="btn btn-primary" href="{% url 'dashbord:admin:order-invoice' pk=object.pk %}" target="_blank">مشاهده فاکتور</a>
+        <a class="btn btn-primary" href="{% url 'dashboard:admin:order-invoice' pk=object.pk %}" target="_blank">مشاهده فاکتور</a>
         {% endif %}
       </div>
     </div>
@@ -100,7 +100,7 @@
           <dl class="col-md-3">{{object.zip_code}}</dl>
         </div>
         <div class=" d-flex pt-5 justify-content-end">
-          <a class="btn btn-secondary ms-3" href="{% url 'dashbord:admin:order-list' %}">بازگشت</a>
+          <a class="btn btn-secondary ms-3" href="{% url 'dashboard:admin:order-list' %}">بازگشت</a>
 
         </div>
       </form>

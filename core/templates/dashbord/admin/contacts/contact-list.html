@@ -1,4 +1,4 @@
-{% extends 'dashbord/admin/base.html' %}
+{% extends 'dashboard/admin/base.html' %}
 {% load static %}
 
 {% block extra_css %}
@@ -118,7 +118,7 @@
                                     </td>
                                     <td class="d-flex">
                                         <a class="btn btn-sm btn-icon btn-ghost-secondary"
-                                            href="{% url 'dashbord:admin:contact-detail' pk=object.pk %}"><i class="bi-eye"></i></a>
+                                            href="{% url 'dashboard:admin:contact-detail' pk=object.pk %}"><i class="bi-eye"></i></a>
         
                                     </td>
                                 </tr>

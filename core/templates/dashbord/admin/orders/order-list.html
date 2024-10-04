@@ -1,4 +1,4 @@
-{% extends 'dashbord/admin/base.html' %}
+{% extends 'dashboard/admin/base.html' %}
 {% load static %}
 
 {% block extra_css %}
@@ -109,7 +109,7 @@
                                 {% for object in object_list %}
                                 <tr>
                                     <th scope="row">{{forloop.counter}}</th>
-                                    <td><a href="{% url 'dashbord:admin:order-detail' pk=object.pk %}">{{object.id}}</a></td>
+                                    <td><a href="{% url 'dashboard:admin:order-detail' pk=object.pk %}">{{object.id}}</a></td>
                                     <td>{{object.user.user_profile.get_fullname}}</td>
                                     <td class="formatted-price" >{{object.get_price}}</td>
                                     <td>{{object.created_date|date:"Y-m-d h:i"}}</td>

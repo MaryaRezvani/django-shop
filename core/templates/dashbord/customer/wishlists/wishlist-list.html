@@ -1,4 +1,4 @@
-{% extends 'dashbord/customer/base.html' %}
+{% extends 'dashboard/customer/base.html' %}
 {% load static %}
 
 {% block breadcrumb %}
@@ -60,7 +60,7 @@
               <div class="col-sm-3">
                 <div class="col-auto">
                   <div class="d-grid gap-2">
-                    <form action="{% url 'dashbord:customer:wishlist-delete' pk=object.pk %}" method="post">
+                    <form action="{% url 'dashboard:customer:wishlist-delete' pk=object.pk %}" method="post">
                       {% csrf_token %}
                       <button class="btn btn-outline-danger btn-sm"  type="submit">
                         <i class="bi-trash me-1"></i> حذف

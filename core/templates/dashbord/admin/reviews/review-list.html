@@ -1,4 +1,4 @@
-{% extends 'dashbord/admin/base.html' %}
+{% extends 'dashboard/admin/base.html' %}
 {% load static %}
 
 {% block extra_css %}
@@ -117,7 +117,7 @@
                                     <td><span class="badge bg-{{object.get_status.title}}">{{object.get_status.label}}</span></td>
                                     <td class="d-flex">
                                         <a class="btn btn-sm btn-icon btn-ghost-secondary"
-                                            href="{% url 'dashbord:admin:review-edit' pk=object.pk %}"><i class="bi-pencil-square"></i></a>
+                                            href="{% url 'dashboard:admin:review-edit' pk=object.pk %}"><i class="bi-pencil-square"></i></a>
         
                                     </td>
                                 </tr>

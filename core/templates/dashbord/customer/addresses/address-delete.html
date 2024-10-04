@@ -1,4 +1,4 @@
-{% extends 'dashbord/customer/base.html' %}
+{% extends 'dashboard/customer/base.html' %}
 {% load static %}
 
 {% block breadcrumb %}
@@ -37,11 +37,10 @@
             <div class="card-footer">
                 <div class=" d-flex pt-5 justify-content-end">
                     <button type="submit" class="btn btn-danger ms-3">تایید حذف</button>
-                    <a class="btn btn-secondary ms-3" href="{% url 'dashbord:customer:address-edit' pk=object.pk %}">بازگشت</a>
+                    <a class="btn btn-secondary ms-3" href="{% url 'dashboard:customer:address-edit' pk=object.pk %}">بازگشت</a>
                 </div>
             </div>
     </form>
 </div>
 
 {% endblock %}
-

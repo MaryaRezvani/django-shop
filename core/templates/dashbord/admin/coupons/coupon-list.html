@@ -1,4 +1,4 @@
-{% extends 'dashbord/admin/base.html' %}
+{% extends 'dashboard/admin/base.html' %}
 {% load static %}
 
 {% block breadcrumb %}
@@ -20,7 +20,7 @@
     <div class="card-header border-bottom">
         <div class="d-flex justify-content-between align-items-center">
             <h5 class="">لیست تخفیف ها</h5>
-            <a class="btn btn-primary" href="{% url 'dashbord:admin:coupon-create' %}">ایجاد کد تخفیف</a>
+            <a class="btn btn-primary" href="{% url 'dashboard:admin:coupon-create' %}">ایجاد کد تخفیف</a>
         </div>
     </div>
     <!-- End Header -->
@@ -93,7 +93,7 @@
                             <td>{{ object.expiration_date|date:"Y-m-d h:i"}}</td>
                             <td class="d-flex">
                                 <a class="btn btn-sm btn-icon btn-ghost-secondary"
-                                    href="{% url 'dashbord:admin:coupon-edit' pk=object.pk %}"><i class="bi-pencil-square"></i></a>
+                                    href="{% url 'dashboard:admin:coupon-edit' pk=object.pk %}"><i class="bi-pencil-square"></i></a>
 
                             </td>
                         </tr>
